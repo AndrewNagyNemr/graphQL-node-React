@@ -12,7 +12,7 @@ const {
 
 const books = [
   { id: "1", name: "book1", genre: "genre1", authorID: "1" },
-  { id: "2", name: "book2", genre: "genre2", authorID: "2" },
+  { id: "2", name: "book2", genre: "genre2", authorID: "1" },
   { id: "3", name: "book3", genre: "genre3", authorID: "3" },
 ];
 
@@ -69,6 +69,18 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         //code to get data from db
         return _.find(authors, { id: args.id });
+      },
+    },
+    books: {
+      type: new GraphQLList(BookType),
+      resolve(parent, args) {
+        return books;
+      },
+    },
+    authors: {
+      type: new GraphQLList(AuthorType),
+      resolve(parent, args) {
+        return authors;
       },
     },
   },
